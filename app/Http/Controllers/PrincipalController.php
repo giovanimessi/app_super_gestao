@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MotivoContato;
 use Illuminate\Http\Request;
 
 class PrincipalController extends Controller
@@ -14,13 +15,7 @@ class PrincipalController extends Controller
     public function index()
     {
         //
-        $motivos_contatos = [
-
-            '1' => 'Duvida',
-            '2' => 'Elogio',
-            '3' => 'Reclamacao'
-    
-           ];
+         $motivos_contatos = MotivoContato::all();
         
         return view('site.principal',compact('motivos_contatos'));
     }
