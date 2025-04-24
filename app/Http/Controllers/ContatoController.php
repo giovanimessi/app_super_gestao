@@ -14,7 +14,37 @@ class ContatoController extends Controller
      */
     public function contatos(Request $request)
     {
-      // $titulo = 'Contatos';
+     
+       $motivos_contatos = [
+
+        '1' => 'Duvida',
+        '2' => 'Elogio',
+        '3' => 'Reclamacao'
+
+       ];
+
+
+        return view('site.contatos',compact('motivos_contatos'));
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        //validade dados
+        $request->validate([
+            'nome' => 'required|min:3|max:100',
+            'telefone'=> 'required',
+            'email' => 'required',
+            'motivo_contato' => 'required',
+            'mensagem' => 'required'
+        ]);
+
+         // $titulo = 'Contatos';
 
        //$dados = $request->all();
 
@@ -28,28 +58,6 @@ class ContatoController extends Controller
       // dd($contato->getAttributes());
       $contato->save();*/
  
-
-
-
-        return view('site.contatos');
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //validade dados
-        $request->validate([
-            'nome' => 'required',
-            'telefone'=> 'required',
-            'email' => 'required',
-            'motivo_contato' => 'required',
-            'mensagem' => 'required'
-        ]);
        //SiteContato::create($request->all());
 
        //return view('site.contatos');

@@ -2,7 +2,7 @@
 
 
 @section('conteudo')
-
+     
 
         <div class="conteudo-pagina">
             <div class="titulo-pagina">
@@ -11,7 +11,7 @@
 
             <div class="informacao-pagina">
                 <div class="contato-principal">
-                @component('site.layouts._component.form_contato')
+                @component('site.layouts._component.form_contato',['motivos_contatos' => $motivos_contatos])
                 <p>teste da vida para nalise</p>
                  @endcomponent
 
@@ -19,6 +19,9 @@
                 </div>
             </div>  
         </div>
+        <pre>
+
+</pre>
 
         <div class="rodape">
             <div class="redes-sociais">
@@ -38,4 +41,5 @@
                 <img src="{{asset('assets/img/mapa.png')}}">
             </div>
         </div>
+
 @endsection
