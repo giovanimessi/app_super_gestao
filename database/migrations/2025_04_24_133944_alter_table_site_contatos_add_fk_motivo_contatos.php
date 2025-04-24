@@ -13,25 +13,36 @@ class AlterTableSiteContatosAddFkMotivoContatos extends Migration
      * @return void
      */
     public function up()
-    {
-        //adicionando a coluna motivo_contato_id
-        Schema::table('site_contatos',function(Blueprint $table){
-            $table->unsignedBigInteger('motivo_contatos_id');
+{
+    // Adiciona a nova coluna
+    Schema::table('site_contatos', function (Blueprint $table) {
+        if (!Schema::hasColumn('site_contatos', 'motivo_contatos_id')) {
+            $table->unsignedBigInteger('motivo_contatos_id')->nullable(); // por segurança
+        }
+    });
 
+    // Atualiza os dados da nova coluna com os valores antigos
+    DB::statement('UPDATE site_contatos SET motivo_contatos_id = motivo_contato');
 
-        });
-        //atribuindo motivo_contato para nova coluna motivo_contato_id
+    // Cria a foreign key e remove a antiga coluna
+    Schema::table('site_contatos', function (Blueprint $table) {
+        $table->foreign('motivo_contatos_id')->references('id')->on('motivo_contatos');
+        $table->dropColumn('motivo_contato');
+    });
+}
 
-        DB::statement('update site_contatos set motivo_contatos_id = motivo_contato');
-    }
+public function down()
+{
+    Schema::table('site_contatos', function (Blueprint $table) {
+        $table->integer('motivo_contato')->nullable();
+        $table->dropForeign(['motivo_contatos_id']);
+    });
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
+    DB::statement('UPDATE site_contatos SET motivo_contato = motivo_contatos_id');
+
+    Schema::table('site_contatos', function (Blueprint $table) {
+        $table->dropColumn('motivo_contatos_id');
+    });
+}
+
 }
