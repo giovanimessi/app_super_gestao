@@ -14,7 +14,15 @@ class PrincipalController extends Controller
     public function index()
     {
         //
-        return view('site.principal');
+        $motivos_contatos = [
+
+            '1' => 'Duvida',
+            '2' => 'Elogio',
+            '3' => 'Reclamacao'
+    
+           ];
+        
+        return view('site.principal',compact('motivos_contatos'));
     }
 
     /**
