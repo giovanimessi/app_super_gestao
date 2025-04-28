@@ -2,11 +2,18 @@
 <form method="post" action="{{route('site.contatos')}}">
     @csrf
     <input name="nome" type="text" class="borda-preta" value="{{ old('nome') }}">
+    @if($errors->has('nome'))
+        {{ $errors->first('nome')}}
+    @endif
+
 
     <br>
-    <input type="text" name="telefone" placeholder="Telefone" class="borda-preta"  value="{{ old('telefone') }}">
+    <input type="text" name="telefone"  class="borda-preta"  value="{{ old('telefone') }}">
+    {{$errors->has('telefone') ? $errors->first('telefone') : ''}}
+
     <br>
     <input type="text" name="email" placeholder="E-mail" class="borda-preta" value="{{ old('email') }}">
+    {{$errors->has('email') ? $errors->first('email') : ''}}
     <br>
     <select name="motivo_contatos_id" class="borda-preta" >
 
@@ -17,6 +24,7 @@
        @endforeach
          
     </select>
+    {{$errors->has('motivo_contatos_id') ? $errors->first('motivo_contatos_id') : ''}}
     <br>
     <textarea class="borda-preta" name="mensagem" >
         @if(old('mensagem') != '')
@@ -24,16 +32,19 @@
              {{ old('mensagem') }}
         @else
         
-           Preencha aqui a sua mensagem
         @endif
     </textarea>
+    {{$errors->has('mensagem') ? $errors->first('mensagem') : ''}}
     <br>
+
+    
     <button type="submit" class="borda-preta">ENVIAR</button>
 </form>
-
-<div style="position:absolute;top:0px;width:%;background:red">
-<pre>
-    {{print_r($errors)}}
-</pre>
-
+<!--
+@if($errors->any())
+<div style="position:absolute;top:0px;width:100%;background:red">
+    @foreach($errors->all() as $error)
+      {{$error}}
+    @endforeach
 </div>
+@endif-->

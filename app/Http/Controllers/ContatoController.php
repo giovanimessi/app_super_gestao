@@ -29,14 +29,24 @@ class ContatoController extends Controller
      */
     public function create(Request $request)
     {
-        //validade dados
-        $request->validate([
-            'nome' => 'required|min:3|max:100',
+
+        $regras = [
+            'nome' => 'required|min:3|max:100|unique:site_contatos',
             'telefone'=> 'required',
-            'email' => 'email',
-            'motivo_contatos_id	' => 'required',
-            'mensagem' => 'required'
-        ]);
+            'email' => 'required|email',
+            'motivo_contatos_id' => 'required',
+            'mensagem' => 'required|max:2000'
+        ];
+
+        $feedback =  [
+            'email.email' => 'O email informado nao e valido.',
+          
+            'required' => 'O campo :attribute deve ser preenchido'
+        ];
+        //validade dados
+        $request->validate(
+            $regras,$feedback
+        );
 
          // $titulo = 'Contatos';
 
