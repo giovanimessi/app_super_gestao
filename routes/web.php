@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorContoller;
-use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\TesteController;
+use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PrincipalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,10 @@ Route::get('/', function () {
     return "Olá,seja bem vindo ao curso";
 });*/
 
-Route::get('/', [PrincipalController::class, 'index'])->name('site.index');
+Route::middleware(LogAcessoMiddleware::class)
+    ->get('/', [PrincipalController::class, 'index'])
+    ->name('site.index');
+
 Route::get('/sobrenos', [SobreNosController::class, 'sobrenos'])->name("site.sobrenos");
 Route::get('/contatos', [ContatoController::class, 'contatos'])->name('site.contatos');
 
