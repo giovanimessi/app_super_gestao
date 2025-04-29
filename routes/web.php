@@ -5,7 +5,7 @@ use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorContoller;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\TesteController;
-use App\Http\Middleware\LogAcessoMiddleware;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,23 +25,21 @@ Route::get('/', function () {
 });*/
 
 
-Route::middleware(LogAcessoMiddleware::class)
-    ->get('/', 'PrincipalController@principal')
+Route::get('/', 'PrincipalController@principal')
     ->name('site.index');
-
-
-Route::get('/sobrenos','SobreNosController@sobrenos')->name("site.sobrenos");
-Route::get('/contatos', 'ContatoController@contatos')->name('site.contatos');
-
-Route::post('/contatos', 'ContatoController@create')->name('site.create');
+Route::get('/sobrenos','SobreNosController@sobrenos')
+->name("site.sobrenos");
+Route::get('/contatos', 'ContatoController@contatos')
+->name('site.contatos');
+Route::post('/contatos', 'ContatoController@create')
+->name('site.create');
 
 Route::get('/login', function () {
     return "Login";
-});
+})->name('site.login');
 
 //agrupar
-Route::prefix('/app')->group(function () {
-//->middleware('auth')
+Route::middleware(['log.acesso','autenticacao'])->prefix('/app')->group(function () {
 
 
     Route::get('/clientes', function () {
