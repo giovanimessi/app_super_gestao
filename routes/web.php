@@ -1,12 +1,13 @@
 <?php
 
+
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorContoller;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\TesteController;
 use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PrincipalController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,14 +24,16 @@ Route::get('/', function () {
     return "Olá,seja bem vindo ao curso";
 });*/
 
+
 Route::middleware(LogAcessoMiddleware::class)
-    ->get('/', [PrincipalController::class, 'index'])
+    ->get('/', 'PrincipalController@principal')
     ->name('site.index');
 
-Route::get('/sobrenos', [SobreNosController::class, 'sobrenos'])->name("site.sobrenos");
-Route::get('/contatos', [ContatoController::class, 'contatos'])->name('site.contatos');
 
-Route::post('/contatos', [ContatoController::class, 'create'])->name('site.create');
+Route::get('/sobrenos','SobreNosController@sobrenos')->name("site.sobrenos");
+Route::get('/contatos', 'ContatoController@contatos')->name('site.contatos');
+
+Route::post('/contatos', 'ContatoController@create')->name('site.create');
 
 Route::get('/login', function () {
     return "Login";
@@ -45,13 +48,13 @@ Route::prefix('/app')->group(function () {
         return "clientes";
     })->name('app.clientes');
 
-    Route::get('/fornecedores',[FornecedorContoller::class,'index'])->name('fornecedor');
+    Route::get('/fornecedores','FornecedorContoller@index')->name('fornecedor');
     Route::get('/produtos', function () {
         return "produtos";
     })->name('app.produtos');
 });
 
-Route::get('/teste/{p1}/{p2}',[TesteController::class, 'teste'])->name('teste');
+Route::get('/teste/{p1}/{p2}','TesteController@teste')->name('teste');
 
 Route::fallback(function () {
     $url = route('site.index');
