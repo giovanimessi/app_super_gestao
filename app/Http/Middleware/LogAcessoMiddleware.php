@@ -37,7 +37,16 @@ class LogAcessoMiddleware
     ]);
 
     return $next($request);
+/*
+$ip = $request->server->get('REMOTE_ADDR');
+$rota = $request->getRequestUri();
+LoginAcesso::create(['log' => "Ip $ip requisitou $rota"]);
 
+//  return $next($request);
+
+$resposta = $next($request);
+$resposta->setStatusCode(201, "Status e tempos foram modificados");
+dd($resposta);*/
 
      
     }   
