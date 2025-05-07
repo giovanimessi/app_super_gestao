@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -60,13 +62,16 @@ class LoginController extends Controller
             $_SESSION['nome'] = $usuario->name;
             $_SESSION['email'] = $usuario->email;
 
-            return redirect()->route('app.clientes');
+            return redirect()->route('app.home');
         } else {
 
             return redirect()->route('site.login', ['erro' => 1]);
         }
     }
     public function sair(){
-        echo 'sair';
+        Auth::logout(); // Faz logout do usuário autenticado
+        Session::flush(); // Limpa toda a sessão
+        return redirect('/login'); // Redireciona para a tela de login (ou onde quiser)
+
     }
 }
