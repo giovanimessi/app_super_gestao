@@ -12,27 +12,50 @@
 
     </div>
 
+
     <div class="Informacao-pagina">
         <div style="width: 30%;margin-left:auto;margin-right:auto">
-            <form action="{{ route('site.login') }}" method="POST">
+            <form method="POST" action="{{ route('site.login') }}">
                 @csrf
 
                 <div>
-
+                    <label for="usuario">Usuario</label>
                     <input type="text" id="usuario" name="usuario" value="{{ old('usuario') }}" class="borda-preta">
-                    {{ $errors->has('usuario') ? $errors->first('usuario') : ''}}
-
-                    <div>
-
-                        <input type="password" id="senha" value="{{old('senha')}}" name="senha" class="borda-preta">
-                        {{ $errors->has('senha') ? $errors->first('senha') : ''}}
+                    @if ($errors->has('usuario'))
+                    <div style="color: red;">
+                        {{ $errors->first('usuario') }}
                     </div>
-
-                    <div>
-                        <button type="submit" class="borda-preta">Acessar</button>
-                    </div>
+                    @endif
                 </div>
+
+                <div>
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" class="borda-preta">
+                    @if ($errors->has('senha'))
+                    <div style="color: red;">
+                        {{ $errors->first('senha') }}
+                    </div>
+                    @endif
+                </div>
+                <div style="color: red;">
+                {{isset($erro) && $erro != '' ? $erro : ' '}}
+                </div>
+
+                @if($erro != '')
+                   <!--limpar o erro ao atulizar a pagina-->
+               
+                    <script>
+                        if (window.history.replaceState) {
+                            window.history.replaceState(null, null, window.location.pathname);
+                        }
+                    </script>
+                @endif
+
+                <button type="submit">Enviar</button>
+
             </form>
+           
+
         </div>
     </div>
 

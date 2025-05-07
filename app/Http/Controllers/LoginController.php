@@ -3,28 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\User;
 
 class LoginController extends Controller
 {
     //
-    public function index(){
-         $titulo = 'Login';
+    public function index(Request $request)
+    {
 
-        return view('site.login' ,compact('titulo'));
+
+        $titulo = 'Login';
+        
+        $erro = '';
+      
+        if ($request->get('erro') == 1) {
+            $erro = 'Usuario ou senha nao existe';
+
+        }
+        if ($request->get('erro') == 2) {
+            $erro = 'Preencha com seus dados de usuario par ter acesso a pagina.';
+
+        }
+        
+        
+
+        return view('site.login', compact('titulo', 'erro'));
     }
-    public function autenticar(Request $request){
-        // Definir as regras de validação
+    public function autenticar(Request $request)
+    {
+        //regras de validaÃ§Ã£o
         $regras = [
-            'usuario' => 'required|email'
+            'usuario' => 'email',
+            'senha' => 'required'
         ];
-    
-        // Mensagens de erro personalizadas
-        $feedback = [
-            'usuario' => 'O campo usuário é obrigatório.',
 
+        //as mensagens de feedback de validaÃ§Ã£o
+        $feedback = [
+            'usuario.email' => 'O campo usuÃ¡rio (e-mail) Ã© obrigatÃ³rio',
+            'senha.required' => 'O campo senha Ã© obrigatÃ³rio'
         ];
-    
-        // Realizar a validação
+
+        //se nÃ£o passar no validate
         $request->validate($regras, $feedback);
+
+        $email = $request->get('usuario');
+        $password  = $request->get('senha');
+
+        $user = new User();
+        $usuario = $user->where('email', $email)->where('password', $password)->get()->first();
+
+
+        if (isset($usuario->name)) {
+
+            session_start();
+
+            $_SESSION['nome'] = $usuario->name;
+            $_SESSION['email'] = $usuario->email;
+
+            return redirect()->route('app.clientes');
+        } else {
+
+            return redirect()->route('site.login', ['erro' => 1]);
+        }
+    }
+    public function sair(){
+        echo 'sair';
     }
 }
