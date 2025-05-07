@@ -36,7 +36,11 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
     Route::get('/home', 'HomeController@index')->name('app.home');
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
     Route::get('/cliente','ClienteController@index')->name('app.clientes');
+
     Route::get('/fornecedore', 'FornecedorContoller@index')->name('app.fornecedores');
+    Route::post('/fornecedore/listar', 'FornecedorContoller@listar')->name('app.fornecedores.listar');
+    Route::get('/fornecedore/adicionar', 'FornecedorContoller@create')->name('app.fornecedores.create');
+
     Route::get('/produto','ProdutoController@index')->name('app.produtos');
 
 });

@@ -15,7 +15,14 @@ class FornecedorContoller extends Controller
     {
         //
 
-        return view('app.fornecedor');
+        return view('app.fornecedor.index');
+    }
+
+
+    public function listar()
+    {
+        //
+        return view('app.fornecedor.listar');
     }
 
     /**
@@ -26,6 +33,7 @@ class FornecedorContoller extends Controller
     public function create()
     {
         //
+        return view('app.fornecedor.adicionar');
     }
 
     /**

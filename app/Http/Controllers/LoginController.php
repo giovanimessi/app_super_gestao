@@ -69,6 +69,7 @@ class LoginController extends Controller
         }
     }
     public function sair(){
+        session_destroy(); // destroi a sessao
         Auth::logout(); // Faz logout do usuário autenticado
         Session::flush(); // Limpa toda a sessão
         return redirect('/login'); // Redireciona para a tela de login (ou onde quiser)
