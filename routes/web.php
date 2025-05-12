@@ -37,9 +37,14 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
     Route::get('/cliente','ClienteController@index')->name('app.clientes');
 
-    Route::get('/fornecedore', 'FornecedorContoller@index')->name('app.fornecedores');
-    Route::post('/fornecedore/listar', 'FornecedorContoller@listar')->name('app.fornecedores.listar');
-    Route::get('/fornecedore/adicionar', 'FornecedorContoller@create')->name('app.fornecedores.create');
+    Route::get('/fornecedore', 'FornecedorController@index')->name('app.fornecedores');
+
+    Route::post('/fornecedore/listar', 'FornecedorController@listar')->name('app.fornecedores.listar');
+    Route::get('/fornecedore/adicionar', 'FornecedorController@create')->name('app.fornecedores.create');
+    Route::post('/fornecedore/adicionar', 'FornecedorController@create')->name('app.fornecedores.create');
+
+    Route::get('/fornecedore/editar/{id}', 'FornecedorController@editar')->name('app.fornecedores.edit');
+    Route::put('/fornecedor/atualizar/{id}', 'FornecedorController@update')->name('app.fornecedores.update');
 
     Route::get('/produto','ProdutoController@index')->name('app.produtos');
 
