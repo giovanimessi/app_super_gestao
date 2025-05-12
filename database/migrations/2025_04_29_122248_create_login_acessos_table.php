@@ -15,7 +15,7 @@ class CreateLoginAcessosTable extends Migration
     {
         Schema::create('login_acessos', function (Blueprint $table) {
             $table->id();
-            $table->string('log', 200);
+            $table->string('log',254);
             $table->timestamps();
         });
     }

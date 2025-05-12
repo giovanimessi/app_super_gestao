@@ -35,13 +35,33 @@
                             <td>{{ $for->site }}</td>
                             <td>{{ $for->uf }}</td>
                             <td>{{ $for->email }}</td>
-                            <td>Excluir</td>
+                           <td>
+                                <form action="{{ route('app.fornecedores.destroy', $for->id) }}" method="POST"
+                                    onsubmit="return confirm('Confirma exclusão do fornecedor {{ $for->nome }}?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" style="background:none; border:none; color:red; cursor:pointer;">
+                                        Excluir
+                                    </button>
+                                </form>
+                                @if (session('success'))
+                                            <div style="color: green;">{{ session('success') }}</div>
+                                        @endif
+
+                                        @if (session('error'))
+                                            <div style="color: red;">{{ session('error') }}</div>
+                                        @endif
+
+                            </td>
                          <td><a href="{{ route('app.fornecedores.edit',$for->id)}}">Editar</a></td>
                    
                         @endforeach
                     </tbody>
                 </table>
-                
+                   <div class="paginacao">
+             {{ $fornecedor->appends($filtros)->links() }}
+                {{ $fornecedor->count() }} - Total de registros
+                   </div>
             </div>
         </div>
     </div>
