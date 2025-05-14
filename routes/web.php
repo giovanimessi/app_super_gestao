@@ -51,8 +51,9 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
     Route::delete('/fornecedor/{id}', 'FornecedorController@destroy')
          ->name('app.fornecedores.destroy');
 
-    Route::get('/produtos','ProdutoController@index')->name('app.produtos.index');
+     Route::get('/produtos','ProdutoController@index')->name('app.produtos.index');
      Route::get('/produtos/create','ProdutoController@create')->name('app.produtos.create');
+     Route::post('/produtos/create','ProdutoController@store')->name('app.produtos.store');
 
 });
 

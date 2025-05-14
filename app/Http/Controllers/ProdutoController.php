@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Produto;
+use App\Unidade;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -33,7 +34,11 @@ class ProdutoController extends Controller
     public function create()
     {
         //
-        echo 'create';
+
+        $unidade = Unidade::all();
+     
+
+       return view('app.produto.create',compact('unidade'));
     }
 
     /**
@@ -45,6 +50,22 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         //
+       Produto::create($request->all());
+
+       /*$produto = new Produto();
+       $nome = $request->get('nome');
+       $descricao = $request->get('descricao');
+
+       $nome = strtoupper($nome);
+
+       $produto->nome = $nome;
+       $produto->descricao = $descricao;
+       $produto->save();*/
+
+
+
+      return redirect()->route('app.produtos.index')
+                 ->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
