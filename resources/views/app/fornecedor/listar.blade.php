@@ -59,7 +59,7 @@
                     </tbody>
                 </table>
                    <div class="paginacao">
-             {{ $fornecedor->appends($filtros)->links() }}
+                {{ $fornecedor->appends($filtros)->links() }}
                 {{ $fornecedor->count() }} - Total de registros
                    </div>
             </div>
