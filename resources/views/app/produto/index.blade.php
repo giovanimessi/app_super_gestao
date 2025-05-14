@@ -44,6 +44,9 @@
                         @endforeach
                     </tbody>
                 </table>
+               {{$produtos->links()}}
+               {{$produtos->count()}} Total Exibido.
+
                
             </div>
         </div>
