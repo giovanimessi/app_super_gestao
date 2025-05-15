@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Produto;
 use App\Unidade;
 use Illuminate\Http\Request;
+use Validator;
 
 class ProdutoController extends Controller
 {
@@ -16,7 +17,7 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         //
-       $produtos = Produto::paginate(2);
+       $produtos = Produto::paginate(8);
 
        return view('app.produto.index',compact('produtos'));
 
@@ -50,7 +51,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         //
-       Produto::create($request->all());
+  
 
        /*$produto = new Produto();
        $nome = $request->get('nome');
@@ -62,8 +63,27 @@ class ProdutoController extends Controller
        $produto->descricao = $descricao;
        $produto->save();*/
 
+       $regras = [
+            'nome' => 'required|min:3|max:100',
+            'descricao' => 'required|min:3|max:200',
+            'peso' => 'required|integer',
+            'unidade_id' => 'required|exists:unidades,id'
+        ];
+       $feedback = [
+        'required' => 'O campo :attribute deve ser preenchido',
+        'nome.min' => 'O campo nome deve ter no minimo 3 caracteres',
+        'nome.max' => 'Campo nome deve ter no maxino 100 caracteres',
+        'descricao.min' => 'Ocampo descricao deve ter no minimo 3 caracteres',
+        'descricao.max' => 'Campo descricao deve ter no maxino 100 caracteres',
+        'peso.integer'  => 'O campo peso deve ser um numero inteiro',
+        'unidade_id.exists' => 'A unidade de medida informada nao existe'
+
+       ];
+
+       $request->validate($regras,$feedback);
 
 
+      Produto::create($request->all());
       return redirect()->route('app.produtos.index')
                  ->with('success', 'Produto cadastrado com sucesso!');
     }
@@ -76,7 +96,9 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        //
+  
+       return view('app.produto.show',compact('produto'));
+
     }
 
     /**

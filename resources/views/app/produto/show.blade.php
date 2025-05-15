@@ -6,12 +6,12 @@
     <div>
         <div class="titulo-pagina-2">
             <h1>
-                <p>Produtos - Listar</p>
+                <p>Produtos - Visualizar</p>
             </h1>
         </div>
         <div class="menu">
             <ul>
-                <li><a href="{{route('app.produtos.create')}}">Novo</a></li>
+                <li><a href="{{route('app.produtos.index')}}">Voltar</a></li>
                 <li><a href="">Consultar</a></li>
             </ul>
         </div>
@@ -20,6 +20,7 @@
                 <table border="1" width= "100%">
                     <thead>
                         <tr>
+                             <th>ID</th>
                             <th>Nome</th>
                             <th>Descricao</th>
                             <th>Peso</th>
@@ -29,21 +30,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                      @foreach($produtos as $prod)
+                    
                         <tr>
-                            <td>{{$prod->nome}}</td>
-                            <td>{{$prod->peso}}</td>
-                            <td>{{$prod->descricao}}</td>
-                            <td>{{$prod->unidade_id}}</td>
-                            <td><a href="{{route('app.produtos.show', $prod->id)}}">Visualizar</a></td>
+                            <td>{{$produto->id}}</td>
+                            <td>{{$produto->nome}}</td>
+                            <td>{{$produto->peso}}</td>
+                            <td>{{$produto->descricao}}</td>
+                            <td>{{$produto->unidade_id}}</td>
                             <td><a href="">Excluir</a></td>
                             <td><a href="">Editar</a></td>
                    
-                        @endforeach
+                    
                     </tbody>
                 </table>
-               {{$produtos->links()}}
-               {{$produtos->count()}} Total Exibido.
+            
 
                
             </div>

@@ -20,23 +20,47 @@
       
                <form method="post" action="{{route('app.produtos.store')}}">
                 @csrf
-                <input type="text" name="nome" placeholder="Nome" class="borda-preta">
-             
+                <input type="text" name="nome"  value="{{old('nome')}}" placeholder="Nome" class="borda-preta">
+               @if($errors->has('nome'))
+               <div style="color:red">
 
-                <input type="text" name="descricao" placeholder="Descricao" class="borda-preta">
-            
+                 {{ $errors->first('nome') }}
+               </div>
+               
 
-                <input type="text" name="peso" placeholder="Peso" class="borda-preta">
+               @endif
+
+                <input type="text" name="descricao" value="{{old('descricao')}}" placeholder="Descricao" class="borda-preta">
+                @if($errors->has('descricao'))
+                 <div style="color:red">
+                    {{ $errors->first('descricao') }}
+
+                 </div>
+                @endif
+
+               <input type="text" name="peso" value="{{old('peso')}}" placeholder="Peso" class="borda-preta">
+               @if($errors->has('peso'))
+               <div style="color:red">
+                  {{$errors->first('peso')}}
+               </div>
+               @endif
           
 
                <select name="unidade_id">
                 <option>Selecione a unidade de medida </option>
 
                 @foreach($unidade as $unidades)
-                <option value="{{$unidades->id}}">{{$unidades->descricao}}</option>
+                <option value="{{$unidades->id}}" {{old('unidade_id') == $unidades->id ? 'selected ': ''}}>{{$unidades->descricao}}</option>
 
                 @endforeach
+
                </select>
+                @if($errors->has('unidade_id'))
+
+                <div style="color:red">
+                    {{$errors->first('unidade_id')}}
+                </div>
+                @endif
         
 
           

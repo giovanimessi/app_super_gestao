@@ -54,6 +54,7 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
      Route::get('/produtos','ProdutoController@index')->name('app.produtos.index');
      Route::get('/produtos/create','ProdutoController@create')->name('app.produtos.create');
      Route::post('/produtos/create','ProdutoController@store')->name('app.produtos.store');
+     Route::get('/produtos/show/{produto}','ProdutoController@show')->name('app.produtos.show');
 
 });
 
