@@ -55,6 +55,8 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
      Route::get('/produtos/create','ProdutoController@create')->name('app.produtos.create');
      Route::post('/produtos/create','ProdutoController@store')->name('app.produtos.store');
      Route::get('/produtos/show/{produto}','ProdutoController@show')->name('app.produtos.show');
+     Route::get('/produtos/edit/{produto}', 'ProdutoController@edit')->name('app.produtos.edit');
+     Route::put('/produtos/edit/{produto}', 'ProdutoController@update')->name('app.produtos.update');
 
 });
 

@@ -37,7 +37,7 @@
                             <td>{{$prod->unidade_id}}</td>
                             <td><a href="{{route('app.produtos.show', $prod->id)}}">Visualizar</a></td>
                             <td><a href="">Excluir</a></td>
-                            <td><a href="">Editar</a></td>
+                            <td><a href="{{route('app.produtos.edit',$prod->id)}}">Editar</a></td>
                    
                         @endforeach
                     </tbody>

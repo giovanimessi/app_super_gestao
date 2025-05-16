@@ -110,6 +110,10 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         //
+       $unidade = Unidade::all();
+
+        return view('app.produto.editar', compact('produto', 'unidade'));
+      
     }
 
     /**
@@ -122,6 +126,18 @@ class ProdutoController extends Controller
     public function update(Request $request, Produto $produto)
     {
         //
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'descricao' => 'required|string',
+        'peso' => 'required|numeric',
+        'unidade_id' => 'required|exists:unidades,id',
+    ]);
+
+    $produto->update($request->only(['nome', 'descricao', 'peso', 'unidade_id']));
+
+    return redirect()->route('app.produtos.show', compact('produto'));
+        
+      
     }
 
     /**
