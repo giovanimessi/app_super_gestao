@@ -17,6 +17,7 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         //
+       // dd(session()->all());
        $produtos = Produto::paginate(8);
 
        return view('app.produto.index',compact('produtos'));
@@ -146,8 +147,13 @@ class ProdutoController extends Controller
      * @param  \App\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
-    {
-        //
-    }
+   public function destroy(Produto $produto)
+{
+    $produto->delete();
+
+    return redirect()
+        ->route('app.produtos.index')
+        ->with('success', 'Produto excluído com sucesso!');
+}
+
 }

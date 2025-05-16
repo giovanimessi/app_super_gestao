@@ -16,6 +16,11 @@
             </ul>
         </div>
         <div class="informacao-pagina">
+               @if(session('success'))
+                    <div style="background-color: #d4edda; color:rgb(87, 21, 51); border: 1px solid #c3e6cb; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                        {{ session('success') }}
+                    </div>
+                @endif
             <div style="width: 90%; margin-left:auto; margin-right:auto;">
                 <table border="1" width= "100%">
                     <thead>
@@ -24,8 +29,6 @@
                             <th>Descricao</th>
                             <th>Peso</th>
                             <th>Unidade Id</th>
-                            <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,9 +38,32 @@
                             <td>{{$prod->peso}}</td>
                             <td>{{$prod->descricao}}</td>
                             <td>{{$prod->unidade_id}}</td>
-                            <td><a href="{{route('app.produtos.show', $prod->id)}}">Visualizar</a></td>
-                            <td><a href="">Excluir</a></td>
-                            <td><a href="{{route('app.produtos.edit',$prod->id)}}">Editar</a></td>
+                           <td>
+                                <a href="{{ route('app.produtos.show', $prod->id) }}">
+                                    <button class="borda-preta" style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none;">
+                                        Visualizar
+                                    </button>
+                                </a>
+                            </td>
+
+                            <td>
+                                <a href="{{ route('app.produtos.edit', $prod->id) }}">
+                                    <button class="borda-preta" style="background-color: #2196F3; color: white; padding: 5px 10px; border: none;">
+                                        Editar
+                                    </button>
+                                </a>
+                            </td>
+
+                            <td>
+                                <form action="{{ route('app.produtos.destroy', $prod->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="borda-preta" style="background-color: #f44336; color: white; padding: 5px 10px; border: none;">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </td>
+
                    
                         @endforeach
                     </tbody>
