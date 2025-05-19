@@ -57,7 +57,14 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
      Route::get('/produtos/show/{produto}','ProdutoController@show')->name('app.produtos.show');
      Route::get('/produtos/edit/{produto}', 'ProdutoController@edit')->name('app.produtos.edit');
      Route::put('/produtos/edit/{produto}', 'ProdutoController@update')->name('app.produtos.update');
-    Route::delete('/produtos/remover/{produto}', 'ProdutoController@destroy')->name('app.produtos.destroy');
+     Route::delete('/produtos/remover/{produto}', 'ProdutoController@destroy')->name('app.produtos.destroy');
+
+     //produtos detalhes
+
+     Route::get('/produtosdetalhes', 'ProdutoDetalhesController@index')->name('app.prdoutodetalhes.index');
+     
+
+     
 
 
 });
