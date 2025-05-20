@@ -61,8 +61,8 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
 
      //produtos detalhes
 
-     Route::get('/produtosdetalhes', 'ProdutoDetalhesController@index')->name('app.prdoutodetalhes.index');
-     
+ //produtos detalhes
+    Route::resource('produto-detalhe', 'ProdutoDetalhesController');
 
      
 
