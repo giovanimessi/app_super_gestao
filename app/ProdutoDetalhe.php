@@ -16,4 +16,12 @@ class ProdutoDetalhe extends Model
          'altura',
           'unidade_id'
         ];
+
+        public function produto(){
+
+          //se existe softDelete  usar ->withTrashed
+        // return $this->belongsTo('App\Produto')->withTrashed();
+         return $this->belongsTo('App\Produto');
+
+        }
 }

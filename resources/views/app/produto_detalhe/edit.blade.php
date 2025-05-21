@@ -17,6 +17,12 @@
         </div>
 
         <div class="informacao-pagina">
+               <h4>Produto</h4>
+ <div>Nome do produto: {{ optional($produto_detalhe->produto)->nome ?? 'Produto não encontrado' }}</div>
+
+               <br>
+               <div>Descricao: {{ optional($produto_detalhe->produto)->descricao ?? 'Produto não encontrado' }}</div>
+
             <div style="width: 30%; margin-left: auto; margin-right: auto;">
                 @component('app.produto_detalhe._components.form_create_edit', ['produto_detalhe' => $produto_detalhe, 'unidades' => $unidades])
                 @endcomponent

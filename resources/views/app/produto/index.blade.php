@@ -38,8 +38,8 @@
                       @foreach($produtos as $prod)
                         <tr>
                             <td>{{$prod->nome}}</td>
-                            <td>{{$prod->peso}}</td>
                             <td>{{$prod->descricao}}</td>
+                            <td>{{$prod->peso}}</td>
                             <td>{{$prod->unidade_id}}</td>
                             <td>{{$prod->produtoDetalhe->comprimento ?? ''}}</td>
                             <td>{{$prod->produtoDetalhe->altura ?? ''}}</td>
