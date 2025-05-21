@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Produto;
 use App\Unidade;
+use  App\ProdutoDetalhe;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -17,15 +18,29 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         //
-       // dd(session()->all());
-       $produtos = Produto::paginate(8);
+        // dd(session()->all());
+        $produtos = Produto::paginate(8);
 
-       return view('app.produto.index',compact('produtos'));
+        foreach($produtos as $Key => $produto){
+           
+            
+            $prod = ProdutoDetalhe::where('produto_id',$produto->id)->first();
+        
+              if(isset($prod)){
+               
+
+                $produtos[ $Key]['comprimento'] = $prod->comprimento;
+                $produtos[$Key]['largura'] = $prod->largura;
+                $produtos[$Key]['altura'] = $prod->altura;
 
 
+              }
+ 
+        }
 
-    
-     
+      
+
+        return view('app.produto.index', compact('produtos'));
     }
 
     /**
@@ -38,9 +53,9 @@ class ProdutoController extends Controller
         //
 
         $unidade = Unidade::all();
-     
 
-       return view('app.produto.create',compact('unidade'));
+
+        return view('app.produto.create', compact('unidade'));
     }
 
     /**
@@ -52,9 +67,9 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         //
-  
 
-       /*$produto = new Produto();
+
+        /*$produto = new Produto();
        $nome = $request->get('nome');
        $descricao = $request->get('descricao');
 
@@ -64,29 +79,29 @@ class ProdutoController extends Controller
        $produto->descricao = $descricao;
        $produto->save();*/
 
-       $regras = [
+        $regras = [
             'nome' => 'required|min:3|max:100',
             'descricao' => 'required|min:3|max:200',
             'peso' => 'required|integer',
             'unidade_id' => 'required|exists:unidades,id'
         ];
-       $feedback = [
-        'required' => 'O campo :attribute deve ser preenchido',
-        'nome.min' => 'O campo nome deve ter no minimo 3 caracteres',
-        'nome.max' => 'Campo nome deve ter no maxino 100 caracteres',
-        'descricao.min' => 'Ocampo descricao deve ter no minimo 3 caracteres',
-        'descricao.max' => 'Campo descricao deve ter no maxino 100 caracteres',
-        'peso.integer'  => 'O campo peso deve ser um numero inteiro',
-        'unidade_id.exists' => 'A unidade de medida informada nao existe'
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome.min' => 'O campo nome deve ter no minimo 3 caracteres',
+            'nome.max' => 'Campo nome deve ter no maxino 100 caracteres',
+            'descricao.min' => 'Ocampo descricao deve ter no minimo 3 caracteres',
+            'descricao.max' => 'Campo descricao deve ter no maxino 100 caracteres',
+            'peso.integer'  => 'O campo peso deve ser um numero inteiro',
+            'unidade_id.exists' => 'A unidade de medida informada nao existe'
 
-       ];
+        ];
 
-       $request->validate($regras,$feedback);
+        $request->validate($regras, $feedback);
 
 
-      Produto::create($request->all());
-      return redirect()->route('app.produtos.index')
-                 ->with('success', 'Produto cadastrado com sucesso!');
+        Produto::create($request->all());
+        return redirect()->route('app.produtos.index')
+            ->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
@@ -97,9 +112,8 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-  
-       return view('app.produto.show',compact('produto'));
 
+        return view('app.produto.show', compact('produto'));
     }
 
     /**
@@ -111,10 +125,9 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         //
-       $unidade = Unidade::all();
+        $unidade = Unidade::all();
 
         return view('app.produto.editar', compact('produto', 'unidade'));
-      
     }
 
     /**
@@ -127,18 +140,16 @@ class ProdutoController extends Controller
     public function update(Request $request, Produto $produto)
     {
         //
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'descricao' => 'required|string',
-        'peso' => 'required|numeric',
-        'unidade_id' => 'required|exists:unidades,id',
-    ]);
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'peso' => 'required|numeric',
+            'unidade_id' => 'required|exists:unidades,id',
+        ]);
 
-    $produto->update($request->only(['nome', 'descricao', 'peso', 'unidade_id']));
+        $produto->update($request->only(['nome', 'descricao', 'peso', 'unidade_id']));
 
-    return redirect()->route('app.produtos.show', compact('produto'));
-        
-      
+        return redirect()->route('app.produtos.show', compact('produto'));
     }
 
     /**
@@ -147,13 +158,12 @@ class ProdutoController extends Controller
      * @param  \App\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-   public function destroy(Produto $produto)
-{
-    $produto->delete();
+    public function destroy(Produto $produto)
+    {
+        $produto->delete();
 
-    return redirect()
-        ->route('app.produtos.index')
-        ->with('success', 'Produto excluído com sucesso!');
-}
-
+        return redirect()
+            ->route('app.produtos.index')
+            ->with('success', 'Produto excluído com sucesso!');
+    }
 }
