@@ -20,7 +20,7 @@ class ProdutoController extends Controller
         //
         // dd(session()->all());
         $produtos = Produto::paginate(8);
-
+/*
         foreach($produtos as $Key => $produto){
            
             
@@ -36,7 +36,7 @@ class ProdutoController extends Controller
 
               }
  
-        }
+        }*/
 
       
 

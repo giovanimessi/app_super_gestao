@@ -41,9 +41,9 @@
                             <td>{{$prod->peso}}</td>
                             <td>{{$prod->descricao}}</td>
                             <td>{{$prod->unidade_id}}</td>
-                            <td>{{$prod->comprimento}}</td>
-                            <td>{{$prod->altura}}</td>
-                            <td>{{$prod->largura}}</td>
+                            <td>{{$prod->produtoDetalhe->comprimento ?? ''}}</td>
+                            <td>{{$prod->produtoDetalhe->altura ?? ''}}</td>
+                            <td>{{$prod->produtoDetalhe->largura ?? ''}}</td>
                            <td>
                                 <a href="{{ route('app.produtos.show', $prod->id) }}">
                                     <button class="borda-preta" style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none;">
