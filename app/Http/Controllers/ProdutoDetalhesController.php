@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Unidade;
 use App\ProdutoDetalhe;
+use App\ItemData;
 
 class ProdutoDetalhesController extends Controller
 {
@@ -58,7 +59,22 @@ class ProdutoDetalhesController extends Controller
      * @param  App\ProdutoDetalhe $produtoDetalhe
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProdutoDetalhe $produtoDetalhe)
+    public function edit($id)
+    {
+      
+
+            $produtoDetalhe = ItemData::find($id);
+
+            $unidades = Unidade::all();
+
+            return view('app.produto_detalhe.edit', [
+                'produto_detalhe' => $produtoDetalhe,
+                'unidades' => $unidades
+            ]);
+    }
+
+    /*
+        public function edit(ProdutoDetalhe $produtoDetalhe)
     {
       
 
@@ -73,6 +89,8 @@ class ProdutoDetalhesController extends Controller
                 'unidades' => $unidades
             ]);
     }
+
+    */
 
     /**
      * Update the specified resource in storage.

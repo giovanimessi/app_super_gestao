@@ -22,6 +22,7 @@
                     </div>
                 @endif
             <div style="width: 90%; margin-left:auto; margin-right:auto;">
+                {{$produtos->toJson()}}
                 <table border="1" width= "100%">
                     <thead>
                         <tr>
@@ -41,9 +42,9 @@
                             <td>{{$prod->descricao}}</td>
                             <td>{{$prod->peso}}</td>
                             <td>{{$prod->unidade_id}}</td>
-                            <td>{{$prod->produtoDetalhe->comprimento ?? ''}}</td>
-                            <td>{{$prod->produtoDetalhe->altura ?? ''}}</td>
-                            <td>{{$prod->produtoDetalhe->largura ?? ''}}</td>
+                            <td>{{$prod->itemDetalhe->comprimento ?? ''}}</td>
+                            <td>{{$prod->itemDetalhe->altura ?? ''}}</td>
+                            <td>{{$prod->itemDetalhe->largura ?? ''}}</td>
                            <td>
                                 <a href="{{ route('app.produtos.show', $prod->id) }}">
                                     <button class="borda-preta" style="background-color: #4CAF50; color: white; padding: 5px 10px; border: none;">
