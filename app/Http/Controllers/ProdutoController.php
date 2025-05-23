@@ -20,7 +20,7 @@ class ProdutoController extends Controller
     {
         //
         // dd(session()->all());
-        $produtos = Item::with(['itemDetalhe'])->paginate(5);
+        $produtos = Item::with(['itemDetalhe', 'fornecedor'])->paginate(5);
 
 /*
         foreach($produtos as $Key => $produto){

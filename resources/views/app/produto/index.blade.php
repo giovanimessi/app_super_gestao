@@ -22,12 +22,15 @@
                     </div>
                 @endif
             <div style="width: 90%; margin-left:auto; margin-right:auto;">
-                {{$produtos->toJson()}}
+                <!--{{$produtos->toJson()}}-->
+
                 <table border="1" width= "100%">
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Descricao</th>
+                            <th>Fornecedor</th>
+                            <th>Site</th>
                             <th>Peso</th>
                             <th>Unidade Id</th>
                             <th>Comprimento</th>
@@ -40,6 +43,8 @@
                         <tr>
                             <td>{{$prod->nome}}</td>
                             <td>{{$prod->descricao}}</td>
+                            <td>{{$prod->fornecedor->nome}}</td>
+                            <td>{{$prod->fornecedor->site}}</td>
                             <td>{{$prod->peso}}</td>
                             <td>{{$prod->unidade_id}}</td>
                             <td>{{$prod->itemDetalhe->comprimento ?? ''}}</td>
