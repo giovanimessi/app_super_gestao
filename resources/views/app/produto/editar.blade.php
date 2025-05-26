@@ -23,6 +23,23 @@
                 @method('PUT')
                <input type="hidden" name="id" value="{{ $produto->id }}">
 
+                <select name="fornecedor_id" class="borda-preta">
+                        <option value="">Selecione um fornecedor</option>
+
+                        @foreach($fornecedores as $for)
+                            <option value="{{ $for->id }}"
+                                {{ old('fornecedor_id', $produto->fornecedor_id ?? '') == $for->id ? 'selected' : '' }}>
+                                {{ $for->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @if($errors->has('fornecedor_id'))
+                        <div style="color:red">
+                            {{ $errors->first('fornecedor_id') }}
+                        </div>
+                    @endif
+
                 <input type="text" name="nome"  value="{{$produto->nome ?? old('nome')}}" placeholder="Nome" class="borda-preta">
                @if($errors->has('nome'))
                <div style="color:red">

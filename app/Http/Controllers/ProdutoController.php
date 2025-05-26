@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Produto;
 use App\Unidade;
+use App\Fornecedor;
 use App\Item;
 use  App\ProdutoDetalhe;
 use Illuminate\Http\Request;
@@ -54,10 +55,13 @@ class ProdutoController extends Controller
     {
         //
 
+       $fornecedores = Fornecedor::all();
+     
+
         $unidade = Unidade::all();
 
 
-        return view('app.produto.create', compact('unidade'));
+        return view('app.produto.create', compact('unidade', 'fornecedores'));
     }
 
     /**
@@ -127,9 +131,11 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         //
+
+          $fornecedores = Fornecedor::all();
         $unidade = Unidade::all();
 
-        return view('app.produto.editar', compact('produto', 'unidade'));
+        return view('app.produto.editar', compact('produto', 'unidade','fornecedores'));
     }
 
     /**

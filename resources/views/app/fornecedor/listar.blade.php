@@ -54,7 +54,30 @@
 
                             </td>
                          <td><a href="{{ route('app.fornecedores.edit',$for->id)}}">Editar</a></td>
-                   
+                        </tr>
+                    
+                        <tr>
+                            <td colspan="6">
+                                <p>Lista de Produtos</p>
+                                <table border="1" style="margin:20px">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>NOME</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($for->produtos as $produto)
+                                        <tr>
+                                            <td>{{ $produto->id }}</td>
+                                            <td>{{ $produto->nome }}</td> {{-- coloque o nome aqui --}}
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
                         @endforeach
                     </tbody>
                 </table>

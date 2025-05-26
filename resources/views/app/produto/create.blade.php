@@ -20,15 +20,24 @@
       
                <form method="post" action="{{route('app.produtos.store')}}">
                 @csrf
-                <input type="text" name="nome"  value="{{old('nome')}}" placeholder="Nome" class="borda-preta">
-               @if($errors->has('nome'))
-               <div style="color:red">
 
-                 {{ $errors->first('nome') }}
-               </div>
-               
+              <select name="fornecedor_id" class="borda-preta">
+                        <option value="">Selecione um fornecedor</option>
 
-               @endif
+                        @foreach($fornecedores as $for)
+                            <option value="{{ $for->id }}"
+                                {{ old('fornecedor_id', $produto->fornecedor_id ?? '') == $for->id ? 'selected' : '' }}>
+                                {{ $for->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @if($errors->has('fornecedor_id'))
+                        <div style="color:red">
+                            {{ $errors->first('fornecedor_id') }}
+                        </div>
+                    @endif
+
 
                 <input type="text" name="descricao" value="{{old('descricao')}}" placeholder="Descricao" class="borda-preta">
                 @if($errors->has('descricao'))

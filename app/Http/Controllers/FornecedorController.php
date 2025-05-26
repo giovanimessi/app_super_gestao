@@ -27,7 +27,7 @@ class FornecedorController extends Controller
            
 
         //filtro
-        $fornecedor  = Fornecedor::Where('nome', 'like', '%' . $request->input('nome') . '%')
+        $fornecedor  = Fornecedor::with(['produtos'])->Where('nome', 'like', '%' . $request->input('nome') . '%')
             ->Where('site', 'like', '%' . $request->input('site') . '%')
             ->Where('uf', 'like', '%' . $request->input('uf') . '%')
             ->Where('email', 'like', '%' . $request->input('email') . '%')->paginate(5);
