@@ -145,17 +145,33 @@ class ProdutoController extends Controller
      * @param  \App\Produto  $produto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto)
     {
         //
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'descricao' => 'required|string',
-            'peso' => 'required|numeric',
+          $regras = [
+            'nome' => 'required|min:3|max:100',
+            'descricao' => 'required|min:3|max:200',
+            'peso' => 'required|integer',
             'unidade_id' => 'required|exists:unidades,id',
-        ]);
+            'fornecedor_id' => 'exists:fornecedores,id'
+        ];
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome.min' => 'O campo nome deve ter no minimo 3 caracteres',
+            'nome.max' => 'Campo nome deve ter no maxino 100 caracteres',
+            'descricao.min' => 'Ocampo descricao deve ter no minimo 3 caracteres',
+            'descricao.max' => 'Campo descricao deve ter no maxino 100 caracteres',
+            'peso.integer'  => 'O campo peso deve ser um numero inteiro',
+            'fornecedor_id.exists' => 'O fornecedor informado nao existe'
 
-        $produto->update($request->only(['nome', 'descricao', 'peso', 'unidade_id']));
+        ];
+
+        $request->validate($regras, $feedback);
+
+      //  $produto->update($request->only(['nome', 'descricao', 'peso', 'unidade_id']));
+
+     // dd($request->all());
+         $produto->update($request->all());
 
         return redirect()->route('app.produtos.show', compact('produto'));
     }
