@@ -63,6 +63,10 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
 
  //produtos detalhes
     Route::resource('produto-detalhe', 'ProdutoDetalhesController');
+
+    Route::resource('cliente','ClienteController');
+    Route::resource('pedido','PedidoController');
+    Route::resource('pedido-produto','PedidoProdutoController');
     
 
      
