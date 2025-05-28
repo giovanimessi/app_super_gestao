@@ -18,14 +18,14 @@
            <div style="width: 30%;margin-left:auto;margin-right:auto;">
           
       
-               <form method="post" action="{{route('cliente.update',$produto->id)}}">
+               <form method="post" action="{{route('cliente.update',$cliente->id)}}">
                 @csrf
                 @method('PUT')
-               <input type="hidden" name="id" value="{{ $produto->id }}">
+               <input type="hidden" name="id" value="{{ $cliente->id }}">
 
             
 
-                <input type="text" name="nome"  value="{{$produto->nome ?? old('nome')}}" placeholder="Nome" class="borda-preta">
+                <input type="text" name="nome"  value="{{$cliente->nome ?? old('nome')}}" placeholder="Nome" class="borda-preta">
                @if($errors->has('nome'))
                <div style="color:red">
 

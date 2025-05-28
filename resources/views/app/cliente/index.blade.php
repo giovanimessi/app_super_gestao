@@ -45,7 +45,7 @@
                             </td>
 
                             <td>
-                                <a href="">
+                                <a href="{{route('cliente.edit', $clie->id)}}">
                                     <button class="borda-preta" style="background-color: #2196F3; color: white; padding: 5px 10px; border: none;">
                                         Editar
                                     </button>

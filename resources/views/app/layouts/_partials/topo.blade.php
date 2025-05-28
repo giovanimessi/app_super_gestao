@@ -8,6 +8,7 @@
         <ul>
             <li><a href="{{ route('app.home') }}">Home</a></li>
             <li><a href="{{ route('cliente.index') }}">Clientes</a></li>
+            <li><a href="{{ route('pedido.index') }}">Pedidos</a></li>
             <li><a href="{{ route('app.fornecedores') }}">Fornecedores</a></li>
             <li><a href="{{ route('app.produtos.index') }}">produtos</a></li>
             <li><a href="{{ route('app.sair') }}">Sair</a></li>

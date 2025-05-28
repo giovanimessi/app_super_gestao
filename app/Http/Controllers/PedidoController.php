@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Pedido;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
@@ -11,9 +12,13 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $pedido = Pedido::paginate(5);
+        $dados = $request->all();
+        return view('app.pedido.index', compact('pedido','dados'));
+
     }
 
     /**
@@ -24,6 +29,7 @@ class PedidoController extends Controller
     public function create()
     {
         //
+        return view('app.pedido.create');
     }
 
     /**

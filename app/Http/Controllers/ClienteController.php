@@ -79,9 +79,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
         //
+        return view('app.cliente.edit',compact('cliente'));
     }
 
     /**
@@ -91,9 +92,30 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente)
     {
         //
+           $regras = [
+
+            'nome' => 'required|min:3|max:40'
+
+        ];
+
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome.min' => 'O campo nome de ter no minimo 3 caracteres',
+            'nome.max' => 'O campo nome deve ter no maximo 40 caracteres'
+        ];
+
+        $request->validate($regras, $feedback);
+
+       
+
+        //dd($request->all());
+        $cliente->update($request->all());
+        return redirect()->route('cliente.index', ['cliente' => $cliente->id ]);
+
+
     }
 
     /**
