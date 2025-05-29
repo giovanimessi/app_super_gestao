@@ -31,40 +31,31 @@
                     </head>
 
                     <tbody>
-                        @foreach($pedidos as $pedido)
+                        @foreach($pedido as $pedidos)
                             <tr>
-                                <td>{{ $pedido->id }}</td>
-                                <td>{{ $pedido->cliente_id }}</td>
-                                <td><a href="{{ route('pedido.show', ['pedido' => $pedido->id ]) }}">Visualizar</a></td>
+                                <td>{{ $pedidos->id }}</td>
+                                <td>{{ $pedidos->cliente_id }}</td>
+                                <td><a href="{{route('pedido_produto_create', ['pedido' => $pedidos->id ])}}">Adicionar Pedidos</a></td>
+                                <td><a href="{{ route('pedido.show', ['pedido' => $pedidos->id ]) }}">Visualizar</a></td>
                                 <td>
-                                    <form id="form_{{$pedido->id}}" method="post" action="{{ route('pedido.destroy', ['pedido' => $pedido->id]) }}">
+                                    <form id="form_{{$pedidos->id}}" method="post" action="{{ route('pedido.destroy', ['pedido' => $pedidos->id]) }}">
                                         @method('DELETE')
                                         @csrf
                                         <!--<button type="submit">Excluir</button>-->
-                                        <a href="#" onclick="document.getElementById('form_{{$pedido->id}}').submit()">Excluir</a>
+                                        <a href="#" onclick="document.getElementById('form_{{$pedidos->id}}').submit()">Excluir</a>
                                     </form>
                                 </td>
-                                <td><a href="{{ route('pedido.edit', ['pedido' => $pedido->id ]) }}">Editar</a></td>
+                                <td><a href="{{ route('pedido.edit', ['pedido' => $pedidos->id ]) }}">Editar</a></td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 
-                {{ $pedidos->appends($request)->links() }}
+               {{$pedido->links()}}
 
-                <!--
+    
                 <br>
-                {{ $pedidos->count() }} - Total de registros por página
-                <br>
-                {{ $pedidos->total() }} - Total de registros da consulta
-                <br>
-                {{ $pedidos->firstItem() }} - Número do primeiro registro da página
-                <br>
-                {{ $pedidos->lastItem() }} - Número do último registro da página
-
-                -->
-                <br>
-                Exibindo {{ $pedidos->count() }} pedidos de {{ $pedidos->total() }} (de {{ $pedidos->firstItem() }} a {{ $pedidos->lastItem() }})
+                Exibindo {{ $pedido->count() }} pedidos de {{ $pedido->total() }} (de {{ $pedido->firstItem() }} a {{ $pedido->lastItem() }})
             </div>
         </div>
 

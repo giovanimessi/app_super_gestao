@@ -10,6 +10,11 @@ class Pedido extends Model
     protected $table = 'pedidos';
     protected $fillable = [
 
+
     ];
+
+    public function produtos(){
+        return $this->belongsToMany('App\Item', 'pedido_produtos','pedido_id', 'produto_id');
+    }
     
 }
