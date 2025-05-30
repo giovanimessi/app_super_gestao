@@ -43,8 +43,8 @@
                         <tr>
                             <td>{{$prod->nome}}</td>
                             <td>{{$prod->descricao}}</td>
-                            <td>{{$prod->fornecedor->nome}}</td>
-                            <td>{{$prod->fornecedor->site}}</td>
+                            <td>{{$prod->fornecedor->nome ?? '' }}</td>
+                            <td>{{$prod->fornecedor->site ?? '' }}</td>
                             <td>{{$prod->peso}}</td>
                             <td>{{$prod->unidade_id}}</td>
                             <td>{{$prod->itemDetalhe->comprimento ?? ''}}</td>
@@ -75,6 +75,20 @@
                                     </button>
                                 </form>
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspna="12">
+                                <p>Pedidos</p>
+
+                           @foreach($prod->pedidos as $pedido)
+                            <a href="{{route('pedido_produto_create',$pedido->id)}}">
+                               Pedido: {{$pedido->id}},
+                            </a>
+                            @endforeach
+
+                         
+                            </td>
+                        </tr>
 
                    
                         @endforeach
