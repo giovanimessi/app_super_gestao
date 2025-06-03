@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\FornecedorContoller;
+use App\Http\Controllers\PedidoProdutoController;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\TesteController;
 
@@ -68,7 +69,13 @@ Route::middleware('autenticacao:padrao,visitantes,p3,p4')->prefix('/app')->group
     Route::resource('pedido','PedidoController');
    // Route::resource('pedido-produto','PedidoProdutoController');
    Route::get('pedido-produto/create/{pedido}','PedidoProdutoController@create' )->name('pedido_produto_create');
-     Route::post('pedido-produto/store/{pedido}','PedidoProdutoController@store' )->name('pedido_produto.store');
+   Route::post('pedido-produto/store/{pedido}','PedidoProdutoController@store' )->name('pedido_produto.store');
+   Route::delete('pedido-produto/destroy/{pedido}/{produto}', 'PedidoProdutoController@destroy')->name('pedido-produto.destroy');
+
+ 
+
+
+
     
 
      
